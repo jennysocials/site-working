@@ -1,0 +1,687 @@
+/* Header behavior */
+#header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+  background-color: white;
+  transition: transform 0.3s ease;
+}
+
+/* Slide it up */
+#header.hide-header {
+  transform: translateY(-100%);
+}
+
+/* Sticky green anchor nav */
+#attorney-anchor-dropdown {
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+  background-color: #005F38;
+  padding: 16px 0;
+  width: 100%;
+}
+
+/* Base styles for navigation links */
+.header-nav a {
+  font-size: 1.0rem; /* Slightly larger font size */
+  font-weight: bold; /* Set bold by default to prevent layout shift */
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #00301A; /* Default color */
+  margin: 0 px;
+  transition: color 0.2s ease, transform 0.2s ease; /* Smooth transition */
+}
+
+/* Hover effect */
+.header-nav a:hover {
+  color: #005932; /* Dark green color on hover */
+  transform: scale(1.05); /* Subtle scaling effect */
+}
+.filter-bar {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3,1fr) auto;
+  background: #003016;
+  color: white;
+  align-items: center;
+  padding: 0 10px;
+  z-index: 10;
+}
+.filter-tab {
+  padding:15px;
+  font-size:16px;
+  cursor:pointer;
+  border-right:1px solid #044725;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  position: relative;
+}
+.filter-tab:last-child{border-right:none;}
+.filter-count{margin-left:6px;font-weight:bold;}
+.filter-tab:after{content:"⌄";transition:transform .2s;}
+.filter-tab.active:after{transform:rotate(180deg);}
+.clear-filters {
+  background:#00532f;
+  border:none;
+  color:white;
+  padding:10px 16px;
+  font-size:14px;
+  border-radius:4px;
+  cursor:pointer;
+  margin-left:10px;
+}
+.clear-filters:hover { background:#007042; }
+
+.dropdown-list {
+  position:absolute;
+  top:100%;
+  margin-top:2px;
+  background:#f3f3f3;
+  color:#003016;
+  max-height:180px;
+  overflow-y:auto;
+  font-size:14px;
+  display:none;
+  box-shadow:0 4px 8px rgba(0,0,0,0.15);
+  z-index:100;
+  min-width: 240px;
+}
+.option {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 12px;
+  border-bottom:1px solid #ddd;
+}
+.option:last-child{border-bottom:none;}
+.option input{transform:scale(0.9);margin:0;}
+.option:hover{background:#e0e0e0;}
+
+.cards-container {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+  padding:30px;
+}
+.card {
+  background:white;
+  border-radius:6px;
+  overflow:hidden;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  transition:transform .25s,box-shadow .25s;
+  display:flex;
+  flex-direction:column;
+}
+.card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.18);
+}
+.portrait-container {
+  width:100%;
+  height:200px;
+  overflow:hidden;
+  background:#ddd;
+}
+.portrait-container img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.card-content {
+  flex:1;
+  padding:16px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+}
+.card h3 {
+  margin:8px 0;
+  font-size:24px;
+  color:#003016;
+}
+.card .title {
+  font-style:italic;
+  font-size:17px;
+  color:#555;
+  margin-bottom:12px;
+}
+.practice-areas {
+  list-style:none;
+  padding:0;
+  margin:0 0 14px;
+  flex:1;
+}
+.practice-areas li {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:14px;
+  justify-content:center;
+}
+.practice-areas a {
+  color:#00642f;
+  text-decoration:none;
+  font-style:italic;
+  transition:font-weight .2s;
+}
+.practice-areas a:hover { font-weight:bold; }
+.practice-areas img {
+  width:16px;
+  height:16px;
+}
+.buttons {
+  display:flex;
+}
+.buttons button {
+  flex:1;
+  padding:12px;
+  font-size:14px;
+  color:white;
+  border:none;
+  cursor:pointer;
+  transition:background .2s;
+}
+.buttons button:first-child {
+  background:#00532f;
+  border-radius:0 0 0 6px;
+}
+.buttons button:last-child {
+  background:#1b6e54;
+  border-radius:0 0 6px 0;
+}
+.buttons button:hover:first-child { background:#00703f; }
+.buttons button:hover:last-child { background:#259e7c; }
+
+@media(max-width:1024px){
+  .cards-container {
+    grid-template-columns:repeat(2,1fr);
+    padding:20px;
+  }
+}
+@media(max-width:640px){
+  .filter-bar { grid-template-columns:1fr auto; }
+  .cards-container {
+    grid-template-columns:1fr;
+    padding:16px;
+  }
+  .portrait-container { height:160px;}
+}
+/* CSS for Attorney Profile Module */
+/* Flex row and align end for button group */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  background: #003016;
+  color: white;
+  padding: 0 10px;
+  gap: 0;
+}
+
+/* Tabs fill space, buttons grouped at right */
+.filter-tab {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-right: 1px solid #044725;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  background: transparent;
+}
+.filter-tab:last-child { border-right: none; }
+
+.button-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: 18px;
+}
+
+/* Unified button style */
+.apply-filters,
+.clear-filters {
+  background: #fff;
+  color: #00532f;
+  border: 2px solid #00532f;
+  padding: 5px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
+  outline: none;
+  min-width: 120px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.apply-filters {
+  border-color: #007042;
+}
+.apply-filters:hover, .apply-filters:focus {
+  background: #00532f;
+  color: #fff;
+  border-color: #007042;
+}
+.clear-filters:hover, .clear-filters:focus {
+  background: #00532f;
+  color: #fff;
+  border-color: #007042;
+}
+
+@media(max-width:900px) {
+  .filter-bar { flex-direction: column; align-items: stretch;}
+  .button-group { margin-left: 0; margin-top: 8px; }
+  .apply-filters, .clear-filters { width: 100%; min-width: 0; }
+}
+.directory-tip {
+  background: #e7ffee;
+  color: #00532f;
+  font-size: 15px;
+  margin: 14px 16px 0 16px;
+  padding: 10px 24px;
+  border-left: 4px solid #00532f;
+  border-radius: 6px;
+  font-weight: 500;
+  display: inline-block;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.directory-tip strong {
+  color: #007042;
+}
+
+#practice-area-anchor-link-menu,
+#attorney-anchor-navigation {
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Must be less than the header's z-index */
+ box-shadow: 0 6px 28px 0 rgba(0, 48, 26, 0.30);
+}
+/*Practice Area Mega Menu Styling Start*/ 
+.practice-areas-menu-wrapper {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 9991;
+    padding: 40px 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-top: 1px solid #ccc;
+  }
+
+ .practice-areas-menu-columns {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 5px 5px;
+  scrollbar-width: thin;
+}
+
+.practice-areas-menu-col {
+  flex: 0 0 260px; /* Fixed width */
+  max-width: 260px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.practice-areas-menu-columns::-webkit-scrollbar {
+  height: 10px;
+  background: #00703c;
+}
+
+.practice-areas-menu-columns::-webkit-scrollbar-track {
+  background: #f3f3f3;
+  border-radius: 6px;
+}
+
+.practice-areas-menu-columns::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #00703c, #005932);
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.practice-areas-menu-columns::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #009957, #003b1f);
+}
+
+
+
+  .practice-areas-menu-col:hover {
+    box-shadow: 0 10px 25px rgba(0,89,50,0.2);
+    transform: translateY(-5px) scale(1.02);
+  }
+
+  .practice-areas-menu-col h3 a {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+    background: linear-gradient(90deg, #005932, #00994d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: none; /* Disable any transitions */
+    animation: none; /* Disable animations */
+    opacity: 1; /* Ensure full visibility */
+    white-space: nowrap;
+    margin-bottom: 12px; /* or adjust to your liking */
+  }
+  
+  /* Override Squarespace fading animations */
+.practice-areas-menu-col h3,
+.practice-areas-menu-col h3 a {
+  animation: none !important; /* Disable animations */
+  transition: none !important; /* Disable transitions */
+  opacity: 1 !important; /* Ensure text remains fully visible */
+}
+
+  .practice-areas-menu-col h3 a:hover {
+    opacity: 0.75;
+  }
+
+  .practice-areas-menu-img {
+    width: 100%;
+    height: 160px;
+    background: #ddd;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  .practice-areas-menu-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+
+  .practice-areas-menu-col ul li {
+    margin-bottom: 6px;
+    font-size: 1rem;
+  }
+
+  .practice-areas-menu-col ul li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #005932;
+    transition: all 0.2s ease;
+    display: inline-block;
+    position: relative;
+  }
+
+  .practice-areas-menu-col ul li a::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #00703c;
+    transition: width 0.25s ease;
+  }
+
+  .practice-areas-menu-col ul li a:hover {
+    color: #003b1f;
+  }
+
+  .practice-areas-menu-col ul li a:hover::after {
+    width: 100%;
+  }
+
+  .practice-areas-menu-button-container {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .practice-areas-menu-btn {
+    display: inline-block;
+    padding: 10px 30px;
+    font-weight: bold;
+    border: 2px solid #005932;
+    background-color: #fff;
+    color: #005932;
+    border-radius: 100px;
+    text-decoration: none;
+    box-shadow: 0 6px 0 #005932;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .practice-areas-menu-btn:hover {
+    background-color: #005932;
+    color: #fff;
+    box-shadow: none;
+    transform: translateY(2px);
+  }
+/*Practice Area Mega Menu Styling End*/ 
+/*Attorney Mega Menu Styling Start*/ 
+.attorney-mega-menu-wrapper {
+    display: none;
+    position: fixed;
+    top: 120px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 9997;
+    padding: 24px 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #ccc;
+  }
+
+  .attorney-mega-menu-inner {
+    width: 100%;
+  }
+
+  .attorney-mega-menu-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .attorney-mega-menu-track {
+    display: flex;
+    gap: 20px;
+    padding: 0 10px 20px;
+    min-width: max-content;
+  }
+
+  .attorney-mega-menu-card {
+    flex: 0 0 auto;
+    width: 220px;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+  }
+
+  .attorney-mega-menu-card:hover {
+    box-shadow: 0 10px 25px rgba(0,89,50,0.2);
+    transform: translateY(-5px) scale(1.02);
+  }
+
+  .attorney-mega-menu-card .photo {
+    width: 80px;
+    height: 80px;
+    background: #ccc;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 3px solid #00593233;
+    transition: border-color 0.3s ease;
+  }
+
+  .attorney-mega-menu-card:hover .photo {
+    border-color: #005932;
+  }
+
+  .attorney-mega-menu-card .name {
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    background: linear-gradient(90deg, #005932, #00994d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+
+  .attorney-mega-menu-card .title {
+    color: #A9A9A9;
+    font-size: 1.0rem;
+    font-weight: bold;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .attorney-mega-menu-areas {
+    padding: 0;
+    margin: 10px 0 12px;
+    text-align: left;
+    list-style: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+
+  .attorney-mega-menu-areas li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    color: #005932;
+  }
+
+  .attorney-mega-menu-areas li img {
+    width: 14px;
+    height: 14px;
+    margin-right: 6px;
+    flex-shrink: 0;
+  }
+
+  .attorney-mega-menu-card a {
+    margin-top: auto;
+    background: #005932;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .attorney-mega-menu-card a:hover {
+    background: #001A0E;
+  }
+
+  .attorney-mega-menu-button-container {
+    text-align: center;
+    margin-top: 24px;
+  }
+
+  .attorney-mega-menu-btn {
+    display: inline-block;
+    padding: 10px 30px;
+    font-weight: bold;
+    border: 2px solid #005932;
+    background-color: #fff;
+    color: #005932;
+    border-radius: 100px;
+    text-decoration: none;
+    box-shadow: 0 6px 0 #005932;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .attorney-mega-menu-btn:hover {
+    background-color: #005932;
+    color: #fff;
+    box-shadow: none;
+    transform: translateY(2px);
+  }
+
+  .attorney-mega-menu-scroll::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .attorney-mega-menu-scroll::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .attorney-mega-menu-card {
+      width: 180px;
+    }
+  }
+/*Attorney Mega Menu Styling End*/ 
+/*Back To Top Styling Start*/ 
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 1rem;
+    background: #fff;
+    color: #005F38;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    box-shadow: 0 4px 8px rgba(0, 95, 56, 0.25);
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 9999;
+    border: 1px solid #e6e6e6;
+    transition: all 0.3s ease;
+    background-clip: padding-box;
+    overflow: hidden;
+  }
+
+  .back-to-top:hover {
+    box-shadow: 0 6px 12px rgba(0, 95, 56, 0.35);
+    transform: translateY(-2px);
+  }
+
+  .gavel-img {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-top: -4px;
+    flex-shrink: 0;
+  }
+/*Back To Top Styling End*/
+/*Anchor Text Menu Scroll Behavior Start*/
+html {
+  scroll-behavior: smooth;
+}
+
+h2, h3, .anchor-target {
+  scroll-margin-top: 120px; /* adjust to your nav height */
+}
+/*Anchor Text Menu Scroll Behavior End*/
